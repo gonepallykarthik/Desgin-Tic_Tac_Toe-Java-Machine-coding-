@@ -90,8 +90,19 @@ public class Game {
             throw new EmptyMoveException("There are no moves to undo! ");
         }
         // remove the last move and re-build the state of board
-        moves.remove(moves.size() - 1);
-        board.rebuildBoard(moves);
+        int index = moves.size() - 1;
+        Move lastCell = moves.get(index);
+
+        moves.remove(index);
+        int row = lastCell.getCell().getX();
+        int col = lastCell.getCell().getY();
+        Cell cell = board.getBoard().get(row).get(col);
+        cell.setPlayer(null);
+        cell.setCellState(CellState.EMPTY);
+
+        nextPlayerIdx-=1;
+        nextPlayerIdx = (nextPlayerIdx + players.size()) % players.size();
+
     }
 
     private boolean validateMove(Move move) {

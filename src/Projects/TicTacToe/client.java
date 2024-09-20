@@ -30,9 +30,19 @@ public class client {
         gameController.display(game);
 
         while (gameController.checkState(game).equals(GameStatus.IN_PROGRESS)) {
+            Player currentPlayer = players.get(game.getNextPlayerIdx());
             gameController.makeMove(game);
-            System.out.println("If you want to Undo the operation Press 'u' or else simply press 'c' for continue ! ");
             gameController.display(game);
+            if(!currentPlayer.getPlayerType().equals(PlayerType.BOT)) {
+                System.out.println("If you want to Undo the operation Press 'y' or else simply press 'n' for continue ! ");
+                String undoResponse = sc.nextLine();
+                if (undoResponse.equals("Y") || undoResponse.equals("y")) {
+                    System.out.println("Entered !");
+                    gameController.undo(game);
+                    System.out.println("undo is successful ! ");
+                    gameController.display(game);
+                }
+            }
         }
 
         if (gameController.checkState(game).equals(GameStatus.WIN)) {
