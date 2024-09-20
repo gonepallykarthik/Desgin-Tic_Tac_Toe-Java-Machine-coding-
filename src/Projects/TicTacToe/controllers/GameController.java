@@ -20,13 +20,19 @@ public class GameController {
     }
     public void display(Game game) {
         game.display();
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
     public void makeMove(Game game) {
-
+        try {
+            game.makeMove();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
     public GameStatus checkState(Game game) {
         return game.getGameStatus();
     }
+
     public void undo(Game game) throws EmptyMoveException {
         game.makeUndo();
     }

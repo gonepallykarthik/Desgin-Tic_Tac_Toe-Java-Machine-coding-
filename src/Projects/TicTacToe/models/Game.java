@@ -94,6 +94,56 @@ public class Game {
         board.rebuildBoard(moves);
     }
 
+    private boolean validateMove(Move move) {
+        int row = move.getCell().getX();
+        int col = move.getCell().getY();
+
+        return row >= 0 && row < board.getSize()
+                && col >= 0 && col < board.getSize() && move.getCell().getCellState().equals(CellState.EMPTY);
+    }
+
+    public boolean checkWinner(Move move) {
+        boolean isWinner = false;
+        for (WinningStrategy strategy : winningStrategies) {
+            if (strategy.checkWinner(board, move)) {
+                isWinner = true;
+            }
+        }
+        return isWinner;
+    }
+    public void makeMove() {
+        Player currentPlayer = players.get(nextPlayerIdx);
+        System.out.println("It is " + currentPlayer.getName()+ "'s" + " turn ");
+        Move move = currentPlayer.makeMove(board);
+        // validate the move
+        if(!validateMove(move)) {
+            System.out.println("Invalid move! ");
+            throw new RuntimeException("Invalid move please try again! ");
+        }
+
+        int row = move.getCell().getX();
+        int col = move.getCell().getY();
+
+        List<List<Cell>> b = board.getBoard();
+        Cell cell = b.get(row).get(col);
+        cell.setCellState(CellState.FILLED);
+        cell.setSymbol(currentPlayer.getSymbol());
+        cell.setPlayer(currentPlayer);
+
+        nextPlayerIdx = (nextPlayerIdx + 1) % players.size();
+        move.setCell(cell);
+        moves.add(move);
+
+        if(checkWinner(move)) {
+            setWinner(currentPlayer);
+            setGameStatus(GameStatus.WIN);
+        }
+        else if (moves.size() == board.getSize() * board.getSize()) {
+            setWinner(null);
+            setGameStatus(GameStatus.DRAW);
+        }
+    }
+
     public static GameBuilder builder() {
         return new GameBuilder();
     }
