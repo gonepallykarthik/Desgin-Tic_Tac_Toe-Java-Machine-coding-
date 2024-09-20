@@ -1,5 +1,6 @@
 package src.Projects.TicTacToe;
 
+import src.Projects.TicTacToe.Exceptions.EmptyMoveException;
 import src.Projects.TicTacToe.Exceptions.InvalidGameConstructionParametersException;
 import src.Projects.TicTacToe.controllers.GameController;
 import src.Projects.TicTacToe.models.*;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class client {
-    public static void main(String[] args) throws InvalidGameConstructionParametersException {
+    public static void main(String[] args) throws InvalidGameConstructionParametersException, EmptyMoveException {
         GameController gameController = new GameController();
         int dimensions = 3;
         List<Player> players = new ArrayList<>();

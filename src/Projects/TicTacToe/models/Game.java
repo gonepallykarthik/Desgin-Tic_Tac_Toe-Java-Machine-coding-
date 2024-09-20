@@ -1,5 +1,6 @@
 package src.Projects.TicTacToe.models;
 
+import src.Projects.TicTacToe.Exceptions.EmptyMoveException;
 import src.Projects.TicTacToe.Exceptions.InvalidGameConstructionParametersException;
 import src.Projects.TicTacToe.strategies.WinningStrategy;
 
@@ -83,6 +84,16 @@ public class Game {
     public void display(){
         this.board.display();
     }
+
+    public void makeUndo() throws EmptyMoveException{
+        if(moves.isEmpty()) {
+            throw new EmptyMoveException("There are no moves to undo! ");
+        }
+        // remove the last move and re-build the state of board
+        moves.remove(moves.size() - 1);
+        board.rebuildBoard(moves);
+    }
+
     public static GameBuilder builder() {
         return new GameBuilder();
     }

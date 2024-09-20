@@ -7,6 +7,9 @@ public class Board {
     int size;
     private List<List<Cell>> board;
 
+    public Board() {
+
+    }
     public Board(int dimension) {
         this.size = dimension;
         this.board = new ArrayList<>();
@@ -29,6 +32,32 @@ public class Board {
             }
             System.out.println();
         }
+    }
+
+    public void rebuildBoard(List<Move> moves) {
+        List<List<Cell>> board1 = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            board1.add(new ArrayList<>());
+            for (int j = 0; j < size; j++) {
+                board1.get(i).add(new Cell(i, j));
+            }
+        }
+
+        // building entire board
+        for (int j = 0; j < moves.size(); j++) {
+            Move m = moves.get(j);
+            int row = m.getCell().getX();
+            int col = m.getCell().getY();
+            Symbol sym = m.getCell().getSymbol();
+            CellState state = m.getCell().getCellState();
+
+            Cell currentCell = board1.get(row).get(col);
+            currentCell.setSymbol(sym);
+            currentCell.setCellState(state);
+
+        }
+
+        this.setBoard(board1);
     }
 
     public List<List<Cell>> getBoard() {

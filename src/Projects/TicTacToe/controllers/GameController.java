@@ -1,5 +1,6 @@
 package src.Projects.TicTacToe.controllers;
 
+import src.Projects.TicTacToe.Exceptions.EmptyMoveException;
 import src.Projects.TicTacToe.Exceptions.InvalidGameConstructionParametersException;
 import src.Projects.TicTacToe.models.Game;
 import src.Projects.TicTacToe.models.GameStatus;
@@ -26,8 +27,8 @@ public class GameController {
     public GameStatus checkState(Game game) {
         return game.getGameStatus();
     }
-    public void undo(Game game) {
-
+    public void undo(Game game) throws EmptyMoveException {
+        game.makeUndo();
     }
     public Player getWinner(Game game) {
         return game.getWinner();

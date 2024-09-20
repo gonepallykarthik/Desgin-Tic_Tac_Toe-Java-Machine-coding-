@@ -4,6 +4,7 @@ public class Cell {
     private int x;
     private int y;
     private Symbol symbol;
+    private Player player;
     private CellState cellState;
 
     public Cell(int x, int y){
@@ -11,7 +12,9 @@ public class Cell {
         this.y = y;
         this.cellState = CellState.EMPTY;
         this.symbol = null;
+        this.player = null;
     }
+
     public int getX() {
         return x;
     }
@@ -44,4 +47,11 @@ public class Cell {
         this.cellState = cellState;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
 }
