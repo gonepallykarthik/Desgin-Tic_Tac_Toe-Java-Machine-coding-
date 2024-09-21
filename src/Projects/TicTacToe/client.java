@@ -4,10 +4,7 @@ import src.Projects.TicTacToe.Exceptions.EmptyMoveException;
 import src.Projects.TicTacToe.Exceptions.InvalidGameConstructionParametersException;
 import src.Projects.TicTacToe.controllers.GameController;
 import src.Projects.TicTacToe.models.*;
-import src.Projects.TicTacToe.strategies.BotPlayingStrategy;
-import src.Projects.TicTacToe.strategies.ColumnWinningStrategy;
-import src.Projects.TicTacToe.strategies.RowWinningStrategy;
-import src.Projects.TicTacToe.strategies.WinningStrategy;
+import src.Projects.TicTacToe.strategies.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +22,7 @@ public class client {
 
         winningStrategies.add(new RowWinningStrategy());
         winningStrategies.add(new ColumnWinningStrategy());
+        winningStrategies.add(new DiagonalWinningStrategy());
 
         Game game = gameController.startGame(dimensions, players, winningStrategies);
         gameController.display(game);

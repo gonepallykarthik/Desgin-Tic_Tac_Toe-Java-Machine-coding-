@@ -17,4 +17,14 @@ public class CornerWinningStrategy implements WinningStrategy{
         }
         return false;
     }
+
+    @Override
+    public void handleUndo(Board board, Move move) {
+        int row = move.getCell().getX();
+        int col = move.getCell().getY();
+
+        board.getBoard().get(row).get(col).setSymbol(null);
+        board.getBoard().get(row).get(col).setPlayer(null);
+
+    }
 }

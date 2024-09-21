@@ -5,4 +5,5 @@ import src.Projects.TicTacToe.models.Move;
 
 public interface WinningStrategy {
     public boolean checkWinner(Board board, Move move);
+    void handleUndo(Board board, Move move);
 }

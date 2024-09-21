@@ -97,12 +97,17 @@ public class Game {
         int row = lastCell.getCell().getX();
         int col = lastCell.getCell().getY();
         Cell cell = board.getBoard().get(row).get(col);
-        cell.setPlayer(null);
+        cell.setSymbol(null);
         cell.setCellState(CellState.EMPTY);
 
         nextPlayerIdx-=1;
         nextPlayerIdx = (nextPlayerIdx + players.size()) % players.size();
+        for(WinningStrategy strategy : winningStrategies) {
+            strategy.handleUndo(board, lastCell);
+        }
 
+        setWinner(null);
+        setGameStatus(GameStatus.IN_PROGRESS);
     }
 
     private boolean validateMove(Move move) {
@@ -213,7 +218,7 @@ public class Game {
             return true;
         }
 
-        public Game  build() throws InvalidGameConstructionParametersException {
+        public Game build() throws InvalidGameConstructionParametersException {
             try{
                 validate();
             }
